@@ -47,6 +47,13 @@ function Userinput() {
     
     
   })
+//reference to skill input tag
+
+const skillRef = React.useRef()
+
+  console.log(resumeDetails);
+  
+
   console.log(resumeDetails);
   
 
@@ -76,6 +83,22 @@ function Userinput() {
   };
 
   const handleReset = () => setActiveStep(0);
+
+  const addskill = (skill)=>{
+    if(resumeDetails.userSkills.includes(skill)){
+      alert("The given skill already added, Please add another!!!")
+    }else{
+      setResumeDetails({...resumeDetails,userSkills:[...resumeDetails.userSkills,skill]})
+      //to clear add skill text box
+      skillRef.current.value = ""
+    }
+  }
+
+  const removeSkill = (skill)=>{
+    setResumeDetails({...resumeDetails,userSkills:resumeDetails.userSkills.filter(item=>item!=skill)})
+  }
+
+  
 
   const renderSteps = (stepcount)=>{
     switch(stepcount){
@@ -134,8 +157,8 @@ function Userinput() {
             <div>
                 <h3>Skills</h3>
                 <div className="d-flex align-items-center justify-content-between p-3 w-100">
-                 <input placeholder='Add skill' type="text" className = "form-control"/>
-                  <button variant='text'>ADD</button>
+                 <input ref={skillRef} placeholder='Add skill' type="text" className = "form-control"/>
+                  <button onClick={()=>addskill(skillRef.current.value)} variant='text'>ADD</button>
 
                 </div>
                 <h5>Suggestions</h5>
@@ -145,17 +168,26 @@ function Userinput() {
 
 
 {skillSuggestionArray.map((item,index)=>(
-  <Button key={index} variant='outlined' className='m-2'>{item}</Button>
+  <Button onClick={()=>addskill(item)} key={index} variant='outlined' className='m-2'>{item}</Button>
 ))}
   
 
 
                 </div>
-                <h5>Added Skills:</h5>
-                <div className="d-flex flex-wrap justify-content-between p-3 my-3">
-                  <Button variant="contained">NODE JS <FaXmark className='ms-2 cursor-pointer' /></Button>
-                
-                </div>
+              <h5>Added Skills:</h5>
+<div className="d-flex flex-wrap gap-2 p-2 my-3">
+  {resumeDetails.userSkills?.length > 0 ? (
+    resumeDetails.userSkills.map((skill, index) => (
+      <Button key={index} variant="contained">
+        {skill}
+        <FaXmark onClick={() => removeSkill(skill)} className="ms-2 cursor-pointer" />
+      </Button>
+    ))
+  ) : (
+    <p className="fw-bolder">No Skills are added yet!!!</p>
+  )}
+</div>
+
             </div>
         )
          case 5 : return(
