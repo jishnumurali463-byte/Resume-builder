@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { FaXmark } from "react-icons/fa6";
+import { addResumeAPI } from ".../services/allAPI";
 
 const steps = [
   'Basic information',
@@ -17,36 +18,13 @@ const steps = [
   'Review & Submit'
 ];
 
-function Userinput() {
+function Userinput({resumeDetails,setResumeDetails}) {
 
   const skillSuggestionArray = ['NODE JS','MONGOBD','EXPRESS JS','REACT','ANGULAR','LEADERSHIP','COMMUNICATION','COACHING','POWER BI','MS EXCEL']
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
-  //create state for storing resume details
-  const [resumeDetails,setResumeDetails] = React.useState({
-
-    username:"",
-    jobTitle:"",
-    location:"",
-   email:"",
-   mobile:"",
-    github:"",
-    linkedin:"",
-   portfolio:"",
-    course:"",
-    collage:"",
-    university:"",
-   passoutYear:"",
-    jobtype:"",
-   company:"",
-    CLocation:"",
-    duration:"",
-      userSkills:[],
-       summary:"",
-    
-    
-  })
+ 
 //reference to skill input tag
 
 const skillRef = React.useRef()
@@ -216,6 +194,26 @@ const skillRef = React.useRef()
 
 
   }
+  const handleAddResume = async ()=>{
+    const {username,jobTitle,location} = resumeDetails 
+    if(!username && !jobTitle && !location){
+      alert("please fill the form Completely...")
+    }else{
+    //api
+    console.log("Api call");
+    try{
+      const result = await addResumeAPI(resumeDetails)
+      console.log(result);
+      
+
+    }catch(error){
+      console.log(error);
+      
+    }
+    
+    //success redirect view page
+    }
+  }
 
   return (
     <Box sx={{ width: '80%', margin: 'auto', mt: 5 }}>
@@ -270,9 +268,11 @@ const skillRef = React.useRef()
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+              {activeStep === steps.length - 1 ? <Button onClick={handleAddResume}>Finish
+             </Button> : <Button onClick={handleNext}>Next
+             </Button> }
+             
+              
           </Box>
         </>
       )}

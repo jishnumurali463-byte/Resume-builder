@@ -547,6 +547,21 @@
     16. Handling API In react
         - fetch method
         - axios library
+          -Axios is a promise-based HTTP Client for the browser and node.js
+          install - npm install axios
+
+
+         
+    17. - Data sharing React
+       - state lifting : data sharing using props, here state will lift to its common  parent so that its child can access data via pros
+
+           JSON SERVER
+         ------------------
+         1.create server folder
+         2.create package.json file server folder,using command : npm init -
+         3.create a json file to store data
+         4.Install json-server package to run json file
+         5.Run server using command : npx json-server json-file-name
 
 
             PROJECT CREATION USING REACT
