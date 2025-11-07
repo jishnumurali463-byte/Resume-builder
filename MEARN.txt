@@ -532,6 +532,10 @@
                     - no argument : side effects will apply all time in component
                     - [] / empty array : side effects will apply only at the creation/loading of component in browser
                     - [props/state/variable] : side effects will apply not only at the component creation but also changes of the array items(props,state/variable)
+
+                -usenavigate() : return afunction which capable of redirecting one page to another  
+                call the return function and pass argument  as url
+                  -useParams(): return an object with dynamic values of component url
         - Custom Hooks : Its should a js file and it filename is starts with 'use' keyword. Hook is a function , it must return data
     13. Props : used to share data from parent to child component, props is the argument of functional component, props is an object where its key is from its child selector property
     14. Routing in React : React- Router Dom 
@@ -541,6 +545,9 @@
             1. Entire react app must be render inside 'BrowserRouter' component
             2. Components used to setup path should be inside 'Routes' component
             3. to set up path/url for a component use 'Route' component and attribute like 'element' used to add component selector and 'path' used to ad 
+
+         -usenavigate() hook is used navigate from one page to another
+         -useParams() hooks used to get dynamic values from url as an object
     15. Form Handling in React : store data inputed via form in component
         - Controlled Components : user input data will be stored in component state, using 'useState' hook to store data
         - Uncontrolled component : user input data will be fetched from real dom, here tag can directly acccess via 'useRef' hook
