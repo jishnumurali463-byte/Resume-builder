@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Landingpage from './pages/Landingpage';
+import Landingpage from './pages/LandingPage';
 import ResumeGenerator from './pages/ResumeGenerator';
 import UserForm from './pages/UserForm';
 import History from './pages/History';
@@ -25,7 +25,7 @@ function App() {
         <Route path="/*" element={<Pnf />} />
       </Routes>
 
-      <Footer /> {/* ✅ Safe only if imported */}
+      <Footer /> 
     </>
   );
 }
