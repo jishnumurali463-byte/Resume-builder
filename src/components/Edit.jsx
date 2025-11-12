@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { FaXmark } from "react-icons/fa6";
+import { updateResumeAPI } from '../services/allAPI';
 
 const style = {
   position: 'absolute',
@@ -40,6 +41,31 @@ function Edit({resumeDetails, setResumeDetails}) {
 
   const removeSkill = (skill)=>{
     setResumeDetails({...resumeDetails,userSkills:resumeDetails.userSkills.filter(item=>item!=skill)})
+  }
+
+     const handleAddResume = async ()=>{
+    const {id,username,jobTitle,location} = resumeDetails 
+    if(!username && !jobTitle && !location){
+      alert("please fill the form Completely...")
+    }else{
+    //api
+    console.log("Api call");
+    try{
+      const result = await updateResumeAPI(id,resumeDetails)
+      console.log(result);
+      if(result.status==200){
+        alert("Resume updated successfully!!!")
+        handleClose()
+      }
+      
+    }catch(err){
+      console.log(err);
+      
+    }
+
+  }
+    
+
   }
   return (
     <div>
@@ -143,7 +169,8 @@ function Edit({resumeDetails, setResumeDetails}) {
                         </div>
              {/* button update */}
              <div className="my-3">
-                <button className="btn btn-warning text-light">Update</button>
+                <button onClick={handleAddResume} className="btn btn-warning text-light">Update</button>
+
 
              </div>
           </Box>
@@ -153,4 +180,4 @@ function Edit({resumeDetails, setResumeDetails}) {
   )
 }
 
-export default Edit
+export default Edit 
